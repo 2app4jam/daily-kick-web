@@ -13,9 +13,9 @@ type Event = {
     end_datetime: string;
 };
 
-export default function CalendarComponent() {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [overlayVisible, setOverlayVisible] = useState(false);
+    export default function CalendarComponent() {
+        const [selectedDate, setSelectedDate] = useState(new Date());
+        const [overlayVisible, setOverlayVisible] = useState(false);
     const [eventTitle, setEventTitle] = useState("");
     const [eventDescription, setEventDescription] = useState("");
     const [startTime, setStartTime] = useState("19:00");
