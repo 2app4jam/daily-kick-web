@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import BottomBar from '../../assets/components/bottombar';
 import TopBar from "../../assets/components/topbar";
 import styles from './style.module.css';
-
+import PlusButton from '../../assets/components/plusbutton';
 interface Schedule {
   _id: string;
   title: string;
@@ -109,13 +109,9 @@ const Plan = () => {
         ))}
       </div>
 
-      <button
-        onClick={() => navigate('/plan/create')}
-        className={styles.addButton}
-      >
-        +
-      </button>
-
+      <div className={styles.addButton}>
+                <PlusButton onClick={() => navigate('/plan/create')} />
+            </div>
       <BottomBar />
     </div>
   );

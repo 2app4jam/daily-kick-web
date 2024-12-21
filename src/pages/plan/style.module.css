@@ -68,20 +68,8 @@
   
   .addButton {
     position: fixed;
-    right: 16px;
-    bottom: 76px;
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-    background-color: #007AFF;
-    color: white;
-    border: none;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
-    cursor: pointer;
+    bottom: 89px;
+    right: 20px;
   }
   
   /* Create Plan Form Styles */
