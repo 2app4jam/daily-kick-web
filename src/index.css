@@ -43,7 +43,6 @@
 /* 호버 효과 */
 .react-calendar__tile:enabled:hover {
   background-color: #f0f0f0;
-  border-radius: 50%;
 }
 
 /* 네비게이션 (월 이동) 버튼 */

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
 import calender from '../../images/calender.svg';
 import plan from '../../images/plan.svg';
-
+import kick from '../../images/kick.svg';
 
 const BottomBar = () => {
     const navigate = useNavigate();
@@ -22,6 +22,11 @@ const BottomBar = () => {
       <div className={styles.bottomBarItem} onClick={() => handleNavigation('/plan')}>
         <img src={plan} alt="계획" className={styles.plan}/>
         <h1 className={styles.text}>계획</h1>
+      </div>
+
+      <div className={styles.bottomBarItem} onClick={() => handleNavigation('/kick')}>
+        <img src={kick} alt="킥" className={styles.kick}/>
+        <h1 className={styles.text}>킥</h1>
       </div>
 
     </div>
