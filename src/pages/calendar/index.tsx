@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import BottomBar from "../../assets/components/bottombar";
 import TopBar from "../../assets/components/topbar";
 import PlusButton from "../../assets/components/plusbutton";
+import schedule from "../../assets/images/schedule.svg";
 
 type Event = {
     title: string;
@@ -13,9 +14,9 @@ type Event = {
     end_datetime: string;
 };
 
-    export default function CalendarComponent() {
-        const [selectedDate, setSelectedDate] = useState(new Date());
-        const [overlayVisible, setOverlayVisible] = useState(false);
+export default function CalendarComponent() {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [overlayVisible, setOverlayVisible] = useState(false);
     const [eventTitle, setEventTitle] = useState("");
     const [eventDescription, setEventDescription] = useState("");
     const [startTime, setStartTime] = useState("19:00");
@@ -43,38 +44,45 @@ type Event = {
             date.getDate()
         ).padStart(2, "0")}`;
     };
-
+    const getEventsForSelectedDate = (): Event[] => {
+        const selectedDateStr = getDateString(selectedDate);
+        return events.filter((event) => event.start_datetime.startsWith(selectedDateStr));
+    };
+    
     const handleAddEvent = async () => {
         if (eventTitle.trim() && eventDescription.trim() && startTime && endTime) {
             const dateStr = getDateString(selectedDate);
             const start_datetime = `${dateStr}T${startTime}:00`;
             const end_datetime = `${dateStr}T${endTime}:00`;
-
+    
             const newEvent: Event = {
                 title: eventTitle.trim(),
                 description: eventDescription.trim(),
                 start_datetime,
                 end_datetime,
             };
-
+    
             // Update events locally
             setEvents((prevEvents) => [...prevEvents, newEvent]);
             console.log(newEvent);
-
-            // Send JSON to backend
+    
+            // Fetch the token from localStorage
+            const token = localStorage.getItem("authToken"); // Replace with your token key
+    
             try {
-                const response = await fetch("http://127.0.0.1:8000/schedule/", {
+                const response = await fetch("http://172.16.20.82:8000/schedule/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`, // Include the token in the header
                     },
                     body: JSON.stringify(newEvent),
                 });
-
+    
                 if (!response.ok) {
                     throw new Error("Failed to save the event to the backend.");
                 }
-
+    
                 console.log("Event successfully saved!");
             } catch (error) {
                 console.error("Error saving event:", error);
@@ -83,7 +91,7 @@ type Event = {
         } else {
             alert("Please fill in all fields before adding the event.");
         }
-
+    
         // Clear inputs and close overlay
         setEventTitle("");
         setEventDescription("");
@@ -126,6 +134,28 @@ type Event = {
                     }
                 />
             </div>
+            <div className={styles.schedule}>
+                <h2 className={styles.scheduleHeader}>{getDateString(selectedDate)}</h2>
+                {getEventsForSelectedDate().length > 0 ? (
+                    getEventsForSelectedDate().map((event, index) => (
+                        <div key={index} className={styles.scheduleItem}>
+                            <img
+                                src={schedule}
+                                alt="Event"
+                                className={styles.scheduleImage}
+                            />
+                            <div className={styles.scheduleText}>
+                            <h3 className={styles.scheduleTitle}>추가 내용</h3>
+                            <p className={styles.scheduleDescription}>{event.description}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className={styles.noSchedule}>일정이 없습니다.</p>
+                )}
+            </div>
+
+
             <div className={styles.plus}>
                 <PlusButton onClick={() => setOverlayVisible(true)} />
             </div>
