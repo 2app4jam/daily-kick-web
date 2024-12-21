@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styles from "./style.module.css";
@@ -11,6 +11,19 @@ export default function CalendarComponent() {
     const [overlayVisible, setOverlayVisible] = useState(false);
     const [eventText, setEventText] = useState("");
     const [events, setEvents] = useState<{ [key: string]: string[] }>({});
+
+    // Load events from localStorage when the component mounts
+    useEffect(() => {
+        const savedEvents = localStorage.getItem("calendarEvents");
+        if (savedEvents) {
+            setEvents(JSON.parse(savedEvents));
+        }
+    }, []);
+
+    // Save events to localStorage whenever `events` state changes
+    useEffect(() => {
+        localStorage.setItem("calendarEvents", JSON.stringify(events));
+    }, [events]);
 
     const handleDateChange = (date: any) => {
         setSelectedDate(date);
@@ -89,7 +102,6 @@ export default function CalendarComponent() {
                         <button className={styles.addButton} onClick={handleAddEvent}>
                             일정 추가
                         </button>
-                        
                     </div>
                 </div>
             )}
