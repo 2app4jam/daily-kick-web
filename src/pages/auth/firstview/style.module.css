@@ -1,0 +1,88 @@
+/* src/pages/auth/firstview/style.module.css */
+.container {
+    min-height: 100vh;
+    background: #ABD2FA;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .backgroundImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;  /* 이미지 크기를 100%로 변경 */
+    height: 100vh;  /* 뷰포트 높이만큼 설정 */
+    object-fit: cover;  /* 이미지가 컨테이너를 꽉 채우도록 설정 */
+    z-index: 1;
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 24px 0;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.4;
+    margin-bottom: auto;
+  }
+  
+  .title span {
+    display: block;
+  }
+  
+  .title span:first-child {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #3F4D97;
+  }
+  
+  .buttonContainer {
+    padding: 20px 24px 40px;
+    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .loginButton, .signupButton {
+    width: 100%;
+    padding: 16px 0;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+  }
+  
+  .loginButton {
+    background: #3F4D97;
+    color: white;
+    box-shadow: 0 4px 6px rgba(63, 77, 151, 0.2);
+  }
+  
+  .loginButton:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(63, 77, 151, 0.2);
+  }
+  
+  .signupButton {
+    background: white;
+    border: 1.5px solid #3F4D97;
+    color: #3F4D97;
+  }
+  
+  .signupButton:active {
+    background: #f8f9ff;
+  }

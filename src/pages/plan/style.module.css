@@ -1,0 +1,232 @@
+/* src/pages/plan/style.module.css */
+/* schedule list styles in style.module.css */
+.timelineContainer {
+    padding: 24px 20px;
+    flex: 1;
+  }
+  
+  .scheduleItem {
+    display: flex;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  
+  .timeColumn {
+    width: 100px;
+    position: relative;
+    color: #666;
+    font-size: 14px;
+    padding-right: 20px;
+    text-align: right;
+  }
+  
+  .timelineDot {
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: #007AFF;
+    border-radius: 50%;
+  }
+  
+  .timelineLine {
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    width: 2px;
+    height: calc(100% + 32px); /* scheduleItem margin-bottom과 동일 */
+    background-color: #EFEFEF;
+  }
+  
+  .scheduleContent {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin-left: 20px;
+    background-color: #F8F8F8;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .deleteButton {
+    border: none;
+    background: none;
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  
+  .deleteButton:hover {
+    opacity: 1;
+  }
+  
+  .addButton {
+    position: fixed;
+    right: 16px;
+    bottom: 76px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+    cursor: pointer;
+  }
+  
+  /* Create Plan Form Styles */
+  .viewTabs {
+    display: flex;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .viewTab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .activeTab {
+    color: #007AFF;
+    border-bottom: 2px solid #007AFF;
+  }
+  
+  .formContainer {
+    padding: 20px;
+  }
+  
+  .formSection {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contentInput {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+  }
+  
+  .timeSelector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .timeSelector select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .toggleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .toggleSwitch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+  }
+  
+  .toggleSwitch input {
+    display: none;
+  }
+  
+  .toggleSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: .4s;
+  }
+  
+  .toggleSlider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+  }
+  
+  .toggleSwitch input:checked + .toggleSlider {
+    background-color: #007AFF;
+  }
+  
+  .toggleSwitch input:checked + .toggleSlider:before {
+    transform: translateX(24px);
+  }
+  
+  /* Add this if you need specific submit button styling */
+  .submitButton {
+    width: 100%;
+    padding: 16px;
+    background: #007AFF;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    position: relative;
+  }
+  
+  .backButton {
+    position: absolute;
+    left: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .title {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .topbar{
+    width: 100%;;
+}
+

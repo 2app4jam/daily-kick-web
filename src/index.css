@@ -35,7 +35,36 @@
   background-color: #f0f0f0 !important;  
   color: #000 !important;
 }
+<<<<<<< Updated upstream
 .react-calendar__tile--now {
   border-radius: 14px;
   color:#000 !important;
 }
+=======
+
+/* 호버 효과 */
+.react-calendar__tile:enabled:hover {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+/* 네비게이션 (월 이동) 버튼 */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* 월 표시 텍스트 */
+.react-calendar__navigation__label {
+  font-size: 16px;
+  font-weight: bold;
+}
+>>>>>>> Stashed changes

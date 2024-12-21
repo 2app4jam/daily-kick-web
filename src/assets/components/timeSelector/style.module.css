@@ -1,0 +1,19 @@
+/* src/assets/components/timeSelector/style.module.css */
+.timeContainer {
+    margin-bottom: 16px;
+  }
+  
+  .timeLabel {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .timeInput {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }

@@ -1,0 +1,151 @@
+/* src/pages/auth/login/style.module.css & src/pages/auth/signup/style.module.css */
+.container {
+    min-height: 100vh;
+    background: #F5F7FF;
+    padding: 0 24px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    position: relative;
+  }
+  
+  .backButton {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    padding: 8px;
+    margin-left: -8px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .header span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin: 40px 0 32px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .inputGroup label {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 4px;
+    margin-left: 4px;
+  }
+  
+  .inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  
+  .inputWrapper:focus-within {
+    box-shadow: 0 0 0 2px rgba(63, 77, 151, 0.1);
+  }
+  
+  .inputWrapper input {
+    width: 100%;
+    padding: 16px;
+    border: 1.5px solid #E5E5E5;
+    border-radius: 12px;
+    font-size: 16px;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+  
+  .inputWrapper input:focus {
+    outline: none;
+    border-color: #3F4D97;
+  }
+  
+  .inputWrapper input::placeholder {
+    color: #999;
+  }
+  
+  .visibilityButton {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .error {
+    font-size: 13px;
+    color: #FF3B30;
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+  
+  .terms {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+  
+  .highlight {
+    color: #3F4D97;
+    text-decoration: underline;
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 16px;
+    background: #3F4D97;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 16px;
+    box-shadow: 0 4px 6px rgba(63, 77, 151, 0.2);
+    transition: all 0.2s ease;
+  }
+  
+  .submitButton:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(63, 77, 151, 0.2);
+  }
+  
+  .submitButton:disabled {
+    background: #E5E5E5;
+    box-shadow: none;
+  }
