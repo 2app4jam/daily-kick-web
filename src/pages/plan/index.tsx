@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomBar from '../../assets/components/bottombar';
 import TopBar from "../../assets/components/topbar";

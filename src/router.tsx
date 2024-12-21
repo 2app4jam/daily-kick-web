@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-import { createBrowserRouter } from "react-router-dom";
-import Calendar from "./pages/calendar";
-=======
 // src/router.tsx
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { PlanProvider } from "./contexts/PlanContext";
@@ -11,7 +7,6 @@ import CreatePlan from "./pages/plan/create";
 import Login from "./pages/auth/login";
 import SignUp from "./pages/auth/signup";
 import FirstView from "./pages/auth/firstview";
->>>>>>> Stashed changes
 
 // 로그인 상태 체크를 위한 Protected Route 컴포넌트
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -31,13 +26,8 @@ const PlanWrapper = ({ children }: { children: React.ReactNode }) => {
 
 const router = createBrowserRouter([
     {
-<<<<<<< Updated upstream
-        path: '/calendar',
-        element: <Calendar />
-=======
         path: '/',
         element: <FirstView />
->>>>>>> Stashed changes
     },
     {
         path: '/main',

@@ -1,5 +1,4 @@
 // src/pages/auth/firstview/index.tsx
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
 import firstViewBackground from '../../../assets/images/firstViewBackground.png';
