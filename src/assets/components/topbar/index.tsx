@@ -11,7 +11,7 @@ const TopBar = () => {
     };
 
   return (
-    <div className={styles.topbar} onClick={() => handleNavigation('/calender')}>
+    <div className={styles.topbar} onClick={() => handleNavigation('/calendar')}>
         <img src={logo} alt="logo" />
     </div>
   );

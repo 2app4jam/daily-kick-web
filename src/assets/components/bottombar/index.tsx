@@ -14,7 +14,7 @@ const BottomBar = () => {
   return (
     <div className={styles.bottomBar}>
 
-      <div className={styles.bottomBarItem} onClick={() => handleNavigation('/calender')}>
+      <div className={styles.bottomBarItem} onClick={() => handleNavigation('/calendar')}>
         <img src={calender} alt="캘린더" className={styles.calender}/>
         <h1 className={styles.text}>캘린더</h1>
       </div>
@@ -23,7 +23,7 @@ const BottomBar = () => {
         <img src={plan} alt="계획" className={styles.plan}/>
         <h1 className={styles.text}>계획</h1>
       </div>
-      
+
     </div>
   );
 };
