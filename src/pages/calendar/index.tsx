@@ -78,15 +78,16 @@ export default function CalendarComponent() {
             {overlayVisible && (
                 <div className={styles.overlay}>
                     <div className={styles.overlayContent}>
-                        <h2>새 일정 추가</h2>
+                        <h2 className={styles.text}>일정 추가</h2>
+                        <h3 className={styles.text2}>일정 내용</h3>
                         <textarea
                             className={styles.textarea}
                             value={eventText}
                             onChange={(e) => setEventText(e.target.value)}
-                            placeholder="일정을 입력하세요."
+                            placeholder="일정을 입력해주세요."
                         ></textarea>
                         <button className={styles.addButton} onClick={handleAddEvent}>
-                            추가
+                            일정 추가
                         </button>
                         
                     </div>
