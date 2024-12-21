@@ -132,7 +132,7 @@ const Plan = () => {
                 {index < schedules.length - 1 && <div className={styles.timelineLine} />}
               </div>
               <div className={`${styles.scheduleContent} ${styles[schedule.type.toLowerCase()]}`}>
-                <span>{schedule.title}</span>
+                <span>{schedule.type === "FREE_TIME" ? schedule.description : schedule.title}</span>
                 <span className={styles.timeRange}>
                   ({formatTime(schedule.start_datetime)} - {formatTime(schedule.end_datetime)})
                 </span>
@@ -155,8 +155,7 @@ const Plan = () => {
       >
         +
       </button>
-
-      <BottomBar />
+      <BottomBar/>
     </div>
   );
 };

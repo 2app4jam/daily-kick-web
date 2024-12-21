@@ -217,4 +217,13 @@
   .topbar{
     width: 100%;;
 }
-
+.addButton {
+  padding: 20px;
+  background-color: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 50px;
+}
+.addButton:hover {
+  background-color: #7DB9F7;
+}
