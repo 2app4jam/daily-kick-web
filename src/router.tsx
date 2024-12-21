@@ -1,9 +1,9 @@
 // src/router.tsx
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { PlanProvider } from "./contexts/PlanContext";
-import Main from "./pages/main";
 import Plan from "./pages/plan";
 import CreatePlan from "./pages/plan/create";
+import Calendar from "./pages/calendar";
 import Login from "./pages/auth/login";
 import SignUp from "./pages/auth/signup";
 import FirstView from "./pages/auth/firstview";
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
         element: <FirstView />
     },
     {
-        path: '/main',
-        element: <ProtectedRoute><Main /></ProtectedRoute>
+        path: '/calendar',
+        element: <ProtectedRoute><Calendar /></ProtectedRoute>
     },
     {
         path: '/plan',
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/calender',
-        element: <ProtectedRoute><Main /></ProtectedRoute>
+        element: <ProtectedRoute><Calendar /></ProtectedRoute>
     },
     {
         path: '/login',
