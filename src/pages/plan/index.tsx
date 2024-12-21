@@ -1,10 +1,11 @@
+// Plan.tsx
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomBar from '../../assets/components/bottombar';
 import TopBar from "../../assets/components/topbar";
 import styles from './style.module.css';
-import PlusButton from '../../assets/components/plusbutton';
+
 interface Schedule {
   _id: string;
   title: string;
@@ -17,72 +18,98 @@ interface Schedule {
 const Plan = () => {
   const navigate = useNavigate();
   const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // 오늘 일정 리스트 불러오기
-  useEffect(() => {
-    const fetchSchedules = async () => {
-        try {
-          const token = localStorage.getItem('authToken'); // 로컬 스토리지에서 토큰 읽기
-      
-          if (!token) {
-            throw new Error('인증 토큰이 없습니다.');
-          }
-      
-          const formattedDate = new Date("2024-12-24").toISOString().split('T')[0];
-          console.log('요청 날짜:', formattedDate);
-          console.log('사용 중인 토큰:', token);
-      
-          // 요청 전송
-          const response = await axios.get(`http://172.16.20.82:8000/schedule/${formattedDate}`, {
-            headers: {
-              Authorization: `Bearer ${token}`, // 'Bearer'가 필요 없는 경우 토큰만 전달
-              'Content-Type': 'application/json',
-            },
-          });
-      
-          console.log('서버 응답 데이터:', response.data);
-          setSchedules(response.data.tasks);
-        } catch (error: any) {
-          if (axios.isAxiosError(error) && error.response) {
-            console.error('서버 응답 에러:', error.response.data);
-      
-            // 인증 에러 처리
-            if (error.response.status === 401) {
-              alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-              localStorage.removeItem('authToken');
-              navigate('/login'); // 올바른 경로로 이동
-            }
-          } else {
-            console.error('알 수 없는 에러:', error.message);
-          }
-        }
-      };
-      
-    fetchSchedules();
-  }, [navigate]);
-
-  const handleDelete = async (id: string) => {
+  // 일정 데이터 불러오기
+  const fetchSchedules = async () => {
     try {
+      setIsLoading(true);
       const token = localStorage.getItem('authToken');
-
+      
       if (!token) {
         throw new Error('인증 토큰이 없습니다.');
       }
 
-      console.log('삭제 요청 일정 ID:', id);
+      // 고정된 날짜 사용 (2024-12-24)
+      const formattedDate = '2024-12-24';
+      console.log('요청 날짜:', formattedDate);
 
-      await axios.delete(`http://172.16.20.82:8000/schedule/${id}`, {
+      const response = await axios.get(`http://172.16.20.82:8000/schedule/${formattedDate}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       });
 
-      setSchedules((prevSchedules) => prevSchedules.filter(schedule => schedule._id !== id));
-      alert('일정이 성공적으로 삭제되었습니다.');
+      console.log('서버 응답 데이터:', response.data);
+      
+      // tasks 배열이 있는지 확인
+      if (response.data && Array.isArray(response.data.tasks)) {
+        // 시간순으로 정렬
+        const sortedSchedules = [...response.data.tasks].sort((a: Schedule, b: Schedule) => 
+          new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()
+        );
+        setSchedules(sortedSchedules);
+      } else {
+        console.error('유효하지 않은 응답 데이터:', response.data);
+        setSchedules([]);
+      }
     } catch (error: any) {
-      console.error('일정 삭제 중 오류 발생:', error.response?.data || error.message);
-      alert('일정 삭제에 실패했습니다. 다시 시도해주세요.');
+      console.error('일정 조회 오류:', error);
+      
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+        localStorage.removeItem('authToken');
+        navigate('/login');
+      } else {
+        alert('일정을 불러오는데 실패했습니다.');
+      }
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchSchedules();
+  }, [navigate]);
+
+  // 일정 삭제 처리
+  const handleDelete = async (id: string) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        throw new Error('인증 토큰이 없습니다.');
+      }
+
+      await axios.delete(`http://172.16.20.82:8000/schedule/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      alert('일정이 삭제되었습니다.');
+      fetchSchedules(); // 삭제 후 목록 새로고침
+    } catch (error: any) {
+      console.error('일정 삭제 중 오류 발생:', error);
+      
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+        localStorage.removeItem('authToken');
+        navigate('/login');
+      } else {
+        alert('일정 삭제에 실패했습니다.');
+      }
+    }
+  };
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
   };
 
   return (
@@ -92,26 +119,43 @@ const Plan = () => {
       </div>
 
       <div className={styles.timelineContainer}>
-        {schedules.map((schedule, index) => (
-          <div key={schedule._id} className={styles.scheduleItem}>
-            <div className={styles.timeColumn}>
-              {new Date(schedule.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-              <div className={styles.timelineDot} />
-              {index < schedules.length - 1 && <div className={styles.timelineLine} />}
+        {isLoading ? (
+          <div className={styles.loadingMessage}>일정을 불러오는 중...</div>
+        ) : schedules.length === 0 ? (
+          <div className={styles.emptyMessage}>등록된 일정이 없습니다.</div>
+        ) : (
+          schedules.map((schedule, index) => (
+            <div key={schedule._id} className={styles.scheduleItem}>
+              <div className={styles.timeColumn}>
+                {formatTime(schedule.start_datetime)}
+                <div className={styles.timelineDot} />
+                {index < schedules.length - 1 && <div className={styles.timelineLine} />}
+              </div>
+              <div className={`${styles.scheduleContent} ${styles[schedule.type.toLowerCase()]}`}>
+                <span>{schedule.title}</span>
+                <span className={styles.timeRange}>
+                  ({formatTime(schedule.start_datetime)} - {formatTime(schedule.end_datetime)})
+                </span>
+                <button 
+                  className={styles.deleteButton}
+                  onClick={() => handleDelete(schedule._id)}
+                >
+                  삭제
+                </button>
+              </div>
             </div>
-            <div className={styles.scheduleContent}>
-              {schedule.title}
-              <button className={styles.deleteButton} onClick={() => handleDelete(schedule._id)}>
-                <p>삭제</p>
-              </button>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      <div className={styles.addButton}>
-                <PlusButton onClick={() => navigate('/plan/create')} />
-            </div>
+      <button
+        onClick={() => navigate('/plan/create')}
+        className={styles.addButton}
+        disabled={isLoading}
+      >
+        +
+      </button>
+
       <BottomBar />
     </div>
   );
