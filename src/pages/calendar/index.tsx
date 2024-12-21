@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import styles from './style.module.css';
 import BottomBar from "../../assets/components/bottombar";
 import TopBar from "../../assets/components/topbar";
+import PlusButton from "../../assets/components/plusbutton";
 
 export default function CalendarComponent() {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -22,11 +23,14 @@ export default function CalendarComponent() {
                     onChange={handleDateChange}
                     value={selectedDate}
                     className={styles.customCalendar}
+                    formatDay={(locale, date) : any => date.getDate()} // 날짜만 숫자로 표시
                     tileClassName={({ date, view }) => {
-                        // Highlight today's date
                         return date.toDateString() === new Date().toDateString() ? styles.today : null;
                     }}
                 />
+            </div>
+            <div className={styles.plus}>
+                <PlusButton />
             </div>
             <div className={styles.bottomBar}>
                 <BottomBar />

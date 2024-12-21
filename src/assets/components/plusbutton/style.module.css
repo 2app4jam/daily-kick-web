@@ -1,0 +1,6 @@
+.plusbutton {
+  position: fixed; /* 화면 내에서 고정된 위치 */
+  bottom: 89px;    /* 아래쪽에서 20px */
+  right: 20px;     /* 오른쪽에서 20px */
+  margin: 0;       /* 버튼 자체의 기본 margin 제거 */
+}
