@@ -6,7 +6,7 @@ export default function Kick() {
     const [recommendation, setRecommendation] = useState('산책 30분 즐기기');
     const [isLoading, setIsLoading] = useState(false);
 
-    const extractRecommendation = (data) => {
+    const extractRecommendation = (data : any) => {
         if (typeof data === 'object' && data !== null && 'recommendation' in data) {
             return data.recommendation;
         }
