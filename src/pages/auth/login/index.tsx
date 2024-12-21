@@ -18,7 +18,7 @@ const Login = () => {
     try {
       const response = await signIn(formData);
       localStorage.setItem('token', response.token);
-      navigate('/main');
+      navigate('/calendar');
     } catch (error) {
       if (error instanceof Error) {
         setError('존재하지 않는 아이디입니다.');
