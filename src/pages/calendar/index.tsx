@@ -70,7 +70,7 @@ export default function CalendarComponent() {
             const token = localStorage.getItem("authToken"); // Replace with your token key
     
             try {
-                const response = await fetch("http://172.16.20.82:8000/schedule/", {
+                const response = await fetch("http://174.16.20.229:8000/schedule/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

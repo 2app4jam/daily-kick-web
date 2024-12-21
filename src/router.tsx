@@ -7,7 +7,7 @@ import Calendar from "./pages/calendar";
 import Login from "./pages/auth/login";
 import SignUp from "./pages/auth/signup";
 import FirstView from "./pages/auth/firstview";
-
+import Kick from "./pages/kick";
 // 로그인 상태 체크를 위한 Protected Route 컴포넌트
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem('token');
@@ -59,10 +59,10 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignUp />
     },
-    // {
-    //     path: '/kick',
-    //     element: <ProtectedRoute><Kick /></ProtectedRoute>
-    // }
+    {
+        path: '/kick',
+        element: <ProtectedRoute><Kick /></ProtectedRoute>
+    }
 ]);
 
 export default router;
