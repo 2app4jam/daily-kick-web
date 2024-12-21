@@ -2,12 +2,13 @@ import styles from './style.module.css';
 import plusbutton from '../../images/plusbutton.svg';
 
 
-const PlusButton = () => {
-  return (
-    <div className={styles.plusbutton} >
-        <img src={plusbutton} alt="plusbutton" />
-    </div>
-  );
-};
-
-export default PlusButton;
+export default function PlusButton({ onClick }: { onClick: () => void }) {
+    return (
+        <img
+            src={plusbutton} // 플러스 버튼 이미지 경로
+            alt="plus button"
+            onClick={onClick}
+            className={styles.plusButton}
+        />
+    );
+}
