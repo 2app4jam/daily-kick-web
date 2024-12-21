@@ -1,50 +1,74 @@
-# React + TypeScript + Vite
+# 🕒 짜투리 시간을 효율적으로 활용하는 비법: **Daily Kick**  
+일상의 짜투리 시간을 알차게 활용하고 싶다면?  
+Daily Kick은 **사용자의 플래너를 분석**하여 남는 시간에 **하기 좋은 할 일**을 추천해드립니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/user-attachments/assets/07f77559-1d6e-48b5-bd49-1475448a82d9)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ 주요 기능
 
-## Expanding the ESLint configuration
+### 1. 플래너 분석
+- 사용자가 등록한 일정 데이터를 **자동 분석**하여 짜투리 시간을 계산합니다.
+- 일정 사이의 남는 시간을 기준으로 추천할 작업을 분류:
+  - 짧은 시간에 가능한 작업
+  - 준비가 필요 없는 간단한 작업
+  - 집중력을 요하지 않는 가벼운 작업
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+### 2. 추천 작업 제공
+- **추천 작업의 예시 유형**
+  - **5~15분**:  
+    - 간단한 스트레칭  
+    - 5분 독서  
+    - 명상
+  - **15~30분**:  
+    - 자기 계발 강의 시청  
+    - 언어 학습 앱 활용  
+    - 간단한 정리 작업
+  - **30분 이상**:  
+    - 개인 프로젝트 작업  
+    - 요리  
+    - 창의적인 취미 활동 (그림 그리기, 글쓰기 등)
+- 작업 시간별 **예상 완료 시간**을 함께 제공하여 계획 수립을 도와줍니다.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 3. 동적 업데이트
+- 실시간 일정 변경에 따라 **자동으로 추천 작업을 업데이트**합니다.
+- 스케줄 밀림/취소 시 대체 작업을 즉시 제안해 **유연한 플래너 관리**가 가능합니다.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 활용 기술
+- Front_End : react
+- Back_End : fastapi
+- Design : figma
+- Database : mongodb
+
+---
+
+## 🛠️ 구현 방법
+
+### 1. **알고리즘 설계**
+- **Gap Time 계산**:  
+  일정 간 **빈 시간**을 계산하고 MongoDB에 저장된 데이터를 분석합니다.
+- 작업 유형별 **추천 점수 산정** 로직 구현.
+
+### 2. **데이터 분석 및 머신 러닝**
+- 사용자의 **선호도** 및 **과거 행동 데이터**를 학습해 추천 정확도를 향상시킵니다.
+- FastAPI를 사용해 **추천 모델 API**를 개발합니다.
+
+### 3. **UI/UX 설계**
+- React를 활용하여 플래너 **시각화 및 추천 작업 표시**:
+  - 일정을 한눈에 볼 수 있는 **캘린더 뷰**.
+  - 추천 작업을 클릭해 **즉시 추가**할 수 있는 기능 제공.
+  - **드래그&드롭 방식**으로 작업 수정/삭제 가능.
+
+---
+
+## 🎯 기대 효과
+- 일상 속 짜투리 시간을 활용해 **생산성과 만족도를 높이는 경험** 제공.
+- 개인 일정과 선호도에 맞는 **맞춤형 추천**으로 사용자 편의 극대화.
+- 남는 시간도 의미 있게 활용하여 하루를 더 알차게 만들어보세요!
