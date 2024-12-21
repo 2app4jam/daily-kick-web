@@ -29,3 +29,11 @@
 h1 {
     font-size: 16px;
 }
+
+h2  {
+    font-size: 30px;
+}
+.suggest {
+    position: absolute;
+    bottom: 33%; /* 화면의 20% 지점에 위치 */
+}
