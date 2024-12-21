@@ -71,7 +71,7 @@
 
 .textarea {
     width: 100%;
-    height: 70%; /* 높이를 150px로 증가 */
+    height: 60%; /* 높이를 150px로 증가 */
     margin-bottom: 10px;
     padding: 10px;
     font-size: 11px;
@@ -79,7 +79,16 @@
     border-radius: 9px;
     resize: none; /* 사용자가 크기를 조절할 수 없도록 설정 */
 }
-
+.titleInput{
+    width: 100%;
+    height: 5%; /* 높이를 150px로 증가 */
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 11px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    resize: none; /* 사용자가 크기를 조절할 수 없도록 설정 */
+}
 .text2{
     font-size: 14px;
     margin-bottom: 10px;
@@ -106,4 +115,18 @@
 .eventMemo {
     font-size: 12px;
     color: #555;
+}
+
+.time{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.starttime, .endtime{
+    color: #7d7d7d;
+    border-radius: 6px;
+    border-color: #ccc !important;
+    width: 100%;
+    border: 1px solid #ccc;
 }

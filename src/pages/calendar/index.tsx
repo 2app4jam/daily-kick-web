@@ -6,12 +6,21 @@ import BottomBar from "../../assets/components/bottombar";
 import TopBar from "../../assets/components/topbar";
 import PlusButton from "../../assets/components/plusbutton";
 
+type Event = {
+    title: string;
+    description: string;
+    start_datetime: string;
+    end_datetime: string;
+};
+
 export default function CalendarComponent() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [overlayVisible, setOverlayVisible] = useState(false);
-    const [eventText, setEventText] = useState("");
-    const [events, setEvents] = useState<{ [key: string]: string[] }>({});
-
+    const [eventTitle, setEventTitle] = useState("");
+    const [eventDescription, setEventDescription] = useState("");
+    const [startTime, setStartTime] = useState("19:00");
+    const [endTime, setEndTime] = useState("20:00");
+    const [events, setEvents] = useState<Event[]>([]);
     // Load events from localStorage when the component mounts
     useEffect(() => {
         const savedEvents = localStorage.getItem("calendarEvents");
@@ -29,34 +38,69 @@ export default function CalendarComponent() {
         setSelectedDate(date);
     };
 
-    const getDateId = (date: Date): string => {
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    const getDateString = (date: Date): string => {
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
+            date.getDate()
+        ).padStart(2, "0")}`;
     };
 
-    const handleAddEvent = () => {
-        const dateId = getDateId(selectedDate);
+    const handleAddEvent = async () => {
+        if (eventTitle.trim() && eventDescription.trim() && startTime && endTime) {
+            const dateStr = getDateString(selectedDate);
+            const start_datetime = `${dateStr}T${startTime}:00`;
+            const end_datetime = `${dateStr}T${endTime}:00`;
 
-        if (eventText.trim()) {
-            setEvents((prevEvents) => ({
-                ...prevEvents,
-                [dateId]: prevEvents[dateId]
-                    ? [...prevEvents[dateId], eventText.trim()]
-                    : [eventText.trim()],
-            }));
+            const newEvent: Event = {
+                title: eventTitle.trim(),
+                description: eventDescription.trim(),
+                start_datetime,
+                end_datetime,
+            };
+
+            // Update events locally
+            setEvents((prevEvents) => [...prevEvents, newEvent]);
+            console.log(newEvent);
+
+            // Send JSON to backend
+            try {
+                const response = await fetch("http://127.0.0.1:8000/schedule/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newEvent),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to save the event to the backend.");
+                }
+
+                console.log("Event successfully saved!");
+            } catch (error) {
+                console.error("Error saving event:", error);
+                console.log("Failed to save the event. Please try again.");
+            }
+        } else {
+            alert("Please fill in all fields before adding the event.");
         }
 
-        setEventText(""); // Clear the text input
-        setOverlayVisible(false); // Close the overlay
+        // Clear inputs and close overlay
+        setEventTitle("");
+        setEventDescription("");
+        setStartTime("19:00");
+        setEndTime("20:00");
+        setOverlayVisible(false);
     };
 
     const getTileContent = ({ date }: any) => {
-        const dateId = getDateId(date);
-        const eventList = events[dateId] || [];
+        const dateStr = getDateString(date);
+        const dayEvents = events.filter((event) => event.start_datetime.startsWith(dateStr));
 
-        if (eventList.length > 0) {
-            const displayText = eventList.length > 1
-                ? `${eventList[0].slice(0, 6)}...`
-                : eventList[0].slice(0, 6);
+        if (dayEvents.length > 0) {
+            const displayText =
+                dayEvents.length > 1
+                    ? `${dayEvents[0].title.slice(0, 6)}...`
+                    : dayEvents[0].title.slice(0, 6);
 
             return <p className={styles.eventMemo}>{displayText}</p>;
         }
@@ -92,13 +136,41 @@ export default function CalendarComponent() {
                 <div className={styles.overlay}>
                     <div className={styles.overlayContent}>
                         <h2 className={styles.text}>일정 추가</h2>
-                        <h3 className={styles.text2}>일정 내용</h3>
+                        <h3 className={styles.text2}>제목</h3>
+                        <input
+                            type="text"
+                            className={styles.titleInput}
+                            value={eventTitle}
+                            onChange={(e) => setEventTitle(e.target.value)}
+                            placeholder="일정 제목을 입력해주세요."
+                        />
+                        <h3 className={styles.text2}>내용</h3>
                         <textarea
                             className={styles.textarea}
-                            value={eventText}
-                            onChange={(e) => setEventText(e.target.value)}
-                            placeholder="일정을 입력해주세요."
+                            value={eventDescription}
+                            onChange={(e) => setEventDescription(e.target.value)}
+                            placeholder="일정 내용을 입력해주세요."
                         ></textarea>
+                        <div className={styles.time}>
+                            <div className={styles.starttitle}>
+                                <h3 className={styles.text2}>시작 시간</h3>
+                                <input
+                                    type="time"
+                                    value={startTime}
+                                    onChange={(e) => setStartTime(e.target.value)}
+                                    className={styles.starttime}
+                                />
+                            </div>
+                            <div className={styles.endtitle}>
+                                <h3 className={styles.text2}>종료 시간</h3>
+                                <input
+                                    type="time"
+                                    value={endTime}
+                                    onChange={(e) => setEndTime(e.target.value)}
+                                    className={styles.endtime}
+                                />
+                            </div>
+                        </div>
                         <button className={styles.addButton} onClick={handleAddEvent}>
                             일정 추가
                         </button>
